@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
     java
 }
 
@@ -23,8 +23,10 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 tasks.processResources {
+    val pluginVersion = project.version.toString()
+    inputs.property("version", pluginVersion)
     filteringCharset = "UTF-8"
     filesMatching("plugin.yml") {
-        expand("version" to project.version)
+        expand("version" to pluginVersion)
     }
 }
