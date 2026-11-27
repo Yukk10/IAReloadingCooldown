@@ -27,9 +27,14 @@
 
 ## Сборка
 ```
-gradle build
+./gradlew build
 ```
-Готовый jar появится в `build/libs/`. Нужен JDK 25 и Gradle 9.1+.
+На Windows: `gradlew.bat build`. Готовый jar появится в `build/libs/`. Нужен только JDK 25:
+нужную версию Gradle (9.9.1) wrapper скачает сам.
+
+## CI
+GitHub Actions собирает jar на каждый push и pull request. Jar можно скачать во вкладке Actions,
+в артефактах запуска. При push тега `v*` jar прикрепляется к релизу с этим тегом (если релиза нет, он создаётся).
 
 ## Команды (`iareloading.admin`)
 - `/iareloading info`: список RELOADING-предметов и число обработчиков ItemsAdder под контролем аддона
