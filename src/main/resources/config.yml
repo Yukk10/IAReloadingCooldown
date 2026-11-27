@@ -1,0 +1,23 @@
+# IAReloadingCooldown
+# Предметы ItemsAdder с
+#   events_settings:
+#     cooldown:
+#       indicator: RELOADING
+#       ticks: 300
+# уходят в ванильную перезарядку (белая шторка на иконке, как у хоруса / жемчуга / щита).
+#
+# Если ItemsAdder ругается в консоли на неизвестный indicator, используйте запасной вариант:
+#       indicator: HIDDEN
+#       reloading: true
+#       ticks: 300
+
+# Папки (относительно plugins/), где искать конфиги предметов ItemsAdder. Сканируются рекурсивно *.yml
+content-folders:
+  - ItemsAdder/contents      # ItemsAdder 4.x
+  - ItemsAdder/data/items_packs  # ItemsAdder 3.x (если есть)
+
+# Сохранять перезарядку при выходе с сервера / рестарте (хранится в данных игрока)
+persist: true
+
+# Подробные логи
+debug: false

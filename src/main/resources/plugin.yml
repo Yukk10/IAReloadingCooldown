@@ -1,0 +1,12 @@
+name: IAReloadingCooldown
+version: '${version}'
+main: me.yukio.iareloading.IAReloadingPlugin
+api-version: '26.3'
+description: ItemsAdder addon - cooldown indicator RELOADING (vanilla item cooldown overlay)
+author: yukio
+depend: [ItemsAdder]
+
+permissions:
+  iareloading.admin:
+    description: /iareloading command
+    default: op
