@@ -22,7 +22,7 @@
 ```
 
 ## Установка
-Скачайте `IAReloadingCooldown-1.0.0.jar` из [Releases](../../releases) и положите в `plugins/`.
+Скачайте `IAReloadingCooldown-1.0.1.jar` из [Releases](../../releases) и положите в `plugins/`.
 Нужны Paper 26.3 и ItemsAdder.
 
 ## Сборка
