@@ -2,6 +2,7 @@ package me.yukio.iareloading;
 
 import com.destroystokyo.paper.event.player.PlayerLaunchProjectileEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.ThrowableProjectile;
@@ -75,6 +76,9 @@ public final class UseGate {
             Action a = e.getAction();
             if (a == Action.PHYSICAL || e.getHand() == null) return false;
             player = e.getPlayer();
+            // ПКМ по сундуку, двери, кнопке и т.п. без шифта: клик уходит в блок, предмет не используется
+            // (как в ваниле). Перезарядку не запускаем и обработчики ItemsAdder не блокируем.
+            if (a == Action.RIGHT_CLICK_BLOCK && opensBlock(e, player)) return false;
             stack = e.getItem();
             offHand = e.getHand() == EquipmentSlot.OFF_HAND;
             click = a.isRightClick() ? 1 : 0;
@@ -152,5 +156,21 @@ public final class UseGate {
         if (plugin.debug()) plugin.getLogger().info("[debug] " + player.getName() + " " + item.id()
                 + " -> перезарядка " + item.ticks() + "t (" + event.getEventName() + ")");
         return false;
+    }
+
+    /**
+     * true, если ПКМ откроет/переключит блок, а не использует предмет.
+     * В ваниле с шифтом и предметом в руке клик идёт в предмет, а не в блок.
+     * Если открытие блока запрещено (приват, другой плагин), клик тоже идёт в предмет.
+     * <p>
+     * isInteractable() помечен deprecated как неточный (например, ступени считаются интерактивными),
+     * но замены в Paper API нет, а для сундуков, печей, дверей, кнопок и рычагов он верен.
+     */
+    @SuppressWarnings("deprecation")
+    private static boolean opensBlock(PlayerInteractEvent e, Player player) {
+        Block block = e.getClickedBlock();
+        if (block == null || !block.getType().isInteractable()) return false;
+        if (e.useInteractedBlock() == Event.Result.DENY) return false;
+        return !player.isSneaking();
     }
 }
